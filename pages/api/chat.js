@@ -17,10 +17,11 @@ async function chatRoute(req, res) {
   logger.info({ user: user.chatHandle, prompts: body });
 
   //hard code the response for now, need to call the API
+  // after calling the API, log the reply
   res.status(200).json({
     role: "bot",
     content: "a response from the bot to " + body.newPrompt,
-    closeToTokenLimit: true,
+    closeToTokenLimit: false,
   });
 
   //need error handling to be added, maybe send back a different response in the json
