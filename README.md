@@ -10,10 +10,11 @@ Only authorized users are able to access the chat. These are simply encoded in a
 
 To use, first clone this project.
 
-Create a .env.local file and set the following environment variables. These are needed for the basic login to work.
-
+Create a `.env.local` file in the root directory of the project and set the following environment variables. These are needed for the basic login to work.
+```
 SESSION_PASSWORD="SOME UNIQUE PASSWORD"
 ALLOWED_USERS=[an array of user names] e.g ["MoonStar", "BrightLight"]
+```
 
 To run the app locally:
 `npm run dev`
