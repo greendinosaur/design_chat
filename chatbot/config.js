@@ -8,14 +8,6 @@ const config = {
     createChatBotMessage(`Hi! I'm ready to help you design software.`),
   ],
   botName: botName,
-  customStyles: {
-    botMessageBox: {
-      backgroundColor: "#376B7E",
-    },
-    chatButton: {
-      backgroundColor: "#5ccc9d",
-    },
-  },
   customMessages: {
     quota: (props) => <QuotaMessage {...props} />,
   },
