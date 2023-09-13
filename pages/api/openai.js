@@ -2,8 +2,9 @@ import OpenAI from "openai";
 
 export async function answerPrompt(messages) {
   //use the environment variable to turn off the API to save the token usage
-  if (process.env.TOGGLE_API_ON === true) {
+  if (process.env.TOGGLE_API_ON === "true") {
     try {
+      console.log("Calling OpenAI");
       const openai = new OpenAI({
         apiKey: process.env["OPENAI_API_KEY"],
       });
@@ -25,7 +26,7 @@ export async function answerPrompt(messages) {
   } else {
     //return some default text if the API is turned off
     return {
-      answer: "a default answer with no API",
+      answer: "*React-Markdown* is **Awesome** a default answer with no API",
       tokens: 100,
     };
   }

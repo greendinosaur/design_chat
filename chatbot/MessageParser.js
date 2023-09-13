@@ -3,7 +3,6 @@ import React from "react";
 const MessageParser = ({ children, actions }) => {
   //can use a prop to get hold of the current state and all the messages
   //just need to filter by the user
-  //console.log("all messages", children?.props?.state?.messages);
 
   const parse = (message) => {
     if (message.includes("DELETE")) {

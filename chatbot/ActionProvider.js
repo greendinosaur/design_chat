@@ -27,7 +27,12 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
     });
 
     let newMessages = [];
-    const botMessage = createChatBotMessage(result.content);
+
+    const botMessage = createChatBotMessage(" ", {
+      widget: "markdownToHtml",
+      payload: result.content,
+    });
+
     newMessages.push(botMessage);
 
     // send a message to the bot if the quota is getting close

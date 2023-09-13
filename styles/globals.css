@@ -81,7 +81,7 @@
   padding: 0;
 }
 
-.react-chatbot-kit-chat-bot-message {
+.react-chatbot-kit-chat-bot-message, .my_markdown_widget {
   background-color: #376B7E;
   white-space: pre-wrap;
   padding: 10px;
@@ -95,6 +95,7 @@
   margin-left: auto;
   text-align: left;
 }
+
 
 .react-chatbot-kit-chat-bot-message-arrow {
   width: 0;
