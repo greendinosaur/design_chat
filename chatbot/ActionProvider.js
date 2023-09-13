@@ -19,6 +19,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
         .filter((chat) => chat.type !== "quota"), //exclude the quote messages
     };
 
+    // need to show some kind of loading message while waiting for the API to return
     const result = await fetchJson("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
