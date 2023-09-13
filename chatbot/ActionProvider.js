@@ -11,12 +11,22 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   const [startActiveChat, setStartActiveChat] = useState(1);
 
   const handleAIChat = async (newPrompt, prevMessages) => {
-    console.log(prevMessages);
     // need to add error handling in case the server throws an error code.
     const body = {
       newPrompt: newPrompt,
       promptHistory: prepareData(prevMessages),
     };
+
+    let newMessages = [];
+
+    const holdingMessage = createCustomMessage("...", "loader", {
+      payload: "LOADER",
+    });
+
+    setState((prev) => ({
+      ...prev,
+      messages: [...prev.messages, holdingMessage],
+    }));
 
     // need to show some kind of loading message while waiting for the API to return
     const result = await fetchJson("/api/chat", {
@@ -24,14 +34,6 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
-
-    let newMessages = [];
-
-    const holdingMessage = createCustomMessage("...", "quota", {
-      payload: "LOADER",
-    });
-
-    addMessagesToState([holdingMessage], false);
 
     const botMessage = createChatBotMessage("", {
       widget: "markdownToHtml",
@@ -52,7 +54,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
     setState((prev) => ({
       ...prev,
       messages: [
-        ...prev.messages.filter((message) => message.type !== "quota"),
+        ...prev.messages.filter((message) => message.type !== "loader"),
         ...newMessages,
       ],
     }));
@@ -64,10 +66,11 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   const prepareData = (messages) => {
     const filterMessages = messages
       .slice(startActiveChat)
-      .filter((chat) => chat.type !== "quota"); //exclude the quote messages
+      .filter((chat) => !["quota", "loader"].includes(chat.type)); //exclude the custom messages from the API
 
     //now set the messages to the right json values
     const mapMessages = filterMessages.map(setMessage);
+    console.log(mapMessages);
 
     return mapMessages;
   };
@@ -80,27 +83,6 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
       messageText = message.payload;
     }
     return { message: messageText, type: message.type };
-  };
-
-  const removeLoadingMessage = (prevstateArray, removeLoading) => {
-    if (removeLoading) {
-      prevstateArray?.messages?.splice(
-        prevstateArray?.messages?.findIndex(
-          (a) => a?.message?.message === "DUMMY_MESSAGE"
-        ),
-        1
-      );
-      return prevstateArray;
-    } else {
-      return prevstateArray;
-    }
-  };
-
-  const addMessagesToState = (messages, removeLoading = false) => {
-    setState((prevstate) => ({
-      ...removeLoadingMessage(prevstate, removeLoading),
-      messages: [...prevstate.messages, ...messages],
-    }));
   };
 
   const handleDelete = () => {

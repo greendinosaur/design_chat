@@ -1,5 +1,6 @@
-import { createChatBotMessage, createCustomMessage } from "react-chatbot-kit";
+import { createChatBotMessage } from "react-chatbot-kit";
 import QuotaMessage from "./QuotaMessage";
+import LoaderMessage from "./LoaderMessage";
 import MarkdownToHtml from "./MarkdownWidget";
 
 const botName = "The Design Challenge Bot";
@@ -11,6 +12,7 @@ const config = {
   botName: botName,
   customMessages: {
     quota: (props) => <QuotaMessage {...props} />,
+    loader: (props) => <LoaderMessage {...props} />,
   },
   widgets: [
     {
