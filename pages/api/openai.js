@@ -2,6 +2,8 @@ import OpenAI from "openai";
 
 export async function answerPrompt(messages) {
   //use the environment variable to turn off the API to save the token usage
+  console.log(process.env.TOGGLE_API_ON);
+  console.log(process.env.TOGGLE_API_ON === "true");
   if (process.env.TOGGLE_API_ON === "true") {
     try {
       console.log("Calling OpenAI");
