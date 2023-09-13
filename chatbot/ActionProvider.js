@@ -11,12 +11,11 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   const [startActiveChat, setStartActiveChat] = useState(1);
 
   const handleAIChat = async (newPrompt, prevMessages) => {
+    console.log(prevMessages);
     // need to add error handling in case the server throws an error code.
     const body = {
       newPrompt: newPrompt,
-      promptHistory: prevMessages
-        .slice(startActiveChat)
-        .filter((chat) => chat.type !== "quota"), //exclude the quote messages
+      promptHistory: prepareData(prevMessages),
     };
 
     // need to show some kind of loading message while waiting for the API to return
@@ -28,7 +27,13 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
 
     let newMessages = [];
 
-    const botMessage = createChatBotMessage(" ", {
+    const holdingMessage = createCustomMessage("...", "quota", {
+      payload: "LOADER",
+    });
+
+    addMessagesToState([holdingMessage], false);
+
+    const botMessage = createChatBotMessage("", {
       widget: "markdownToHtml",
       payload: result.content,
     });
@@ -46,7 +51,55 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
 
     setState((prev) => ({
       ...prev,
-      messages: [...prev.messages, ...newMessages],
+      messages: [
+        ...prev.messages.filter((message) => message.type !== "quota"),
+        ...newMessages,
+      ],
+    }));
+  };
+
+  // need to filter out any custom quota messages
+  // and also show the actual response from the API which is stored in payload on the
+  // custom messages
+  const prepareData = (messages) => {
+    const filterMessages = messages
+      .slice(startActiveChat)
+      .filter((chat) => chat.type !== "quota"); //exclude the quote messages
+
+    //now set the messages to the right json values
+    const mapMessages = filterMessages.map(setMessage);
+
+    return mapMessages;
+  };
+
+  // if the messages is blank (which will be for the markdown widget)
+  // then use the payload text instead
+  const setMessage = (message) => {
+    let messageText = message.message;
+    if (messageText.length == 0) {
+      messageText = message.payload;
+    }
+    return { message: messageText, type: message.type };
+  };
+
+  const removeLoadingMessage = (prevstateArray, removeLoading) => {
+    if (removeLoading) {
+      prevstateArray?.messages?.splice(
+        prevstateArray?.messages?.findIndex(
+          (a) => a?.message?.message === "DUMMY_MESSAGE"
+        ),
+        1
+      );
+      return prevstateArray;
+    } else {
+      return prevstateArray;
+    }
+  };
+
+  const addMessagesToState = (messages, removeLoading = false) => {
+    setState((prevstate) => ({
+      ...removeLoadingMessage(prevstate, removeLoading),
+      messages: [...prevstate.messages, ...messages],
     }));
   };
 
