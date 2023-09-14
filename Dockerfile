@@ -55,7 +55,7 @@ USER nextjs
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static 
-COPY --from=builder /app/.env.local ./
+# COPY --from=builder /app/.env.local ./
 
 
 
