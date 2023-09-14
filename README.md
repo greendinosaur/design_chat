@@ -16,6 +16,9 @@ SESSION_PASSWORD="SOME UNIQUE PASSWORD"
 ALLOWED_USERS=[an array of user names] e.g ["MoonStar", "BrightLight"]
 ```
 
+Install the node dependencies from the package.json file:
+`npm install`
+
 To run the app locally:
 `npm run dev`
 
@@ -28,6 +31,11 @@ The outputs of the chat are logged to the stdout, to view these when running und
 `docker logs -f design-chat &> output.log &`
 
 When running locally or using the Docker file, the site is accessible at http://localhost:3000
+
+
+## Deploy to Google Cloud Run
+
+[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
 
 ## Acknowledgements
 This app is built using the [nextjs](https://nextjs.org/) framework.
