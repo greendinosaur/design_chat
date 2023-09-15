@@ -21,6 +21,7 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# COPY .env.local .
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
@@ -43,7 +44,7 @@ ENV NODE_ENV production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder /app/public ./public
+# COPY --from=builder /app/public ./public
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
@@ -65,6 +66,6 @@ ENV PORT 3000
 # set hostname to localhost
 ENV HOSTNAME localhost
 
-#CMD ["node", "server.js"]
-CMD npm run start
+CMD ["node", "server.js"]
+#CMD npm run start
 
