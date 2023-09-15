@@ -50,7 +50,7 @@ The application can be run using Google Cloud Run. To do this, you need to first
 ### Long response time
 The OpenAI Chat API can take some time to return (>10s). A loading message is shown to the user but it does appear that nothing is happening.
 
-This long response can cause problems for some hosting platforms (including AWS Amplify) as they expect a response within 10s and will send a HTTP 504 error code back to the browser if the response is too long. Choose a hosting problem that allows to set a longer wait time for the response (e.g. Google Cloud.)
+This long response can cause problems for some hosting platforms (including AWS Amplify) as they expect a response within 10s and will send a HTTP 504 error code back to the browser if the response is too long. Choose a hosting platform that allows to set a longer wait time for the response (e.g. Google Cloud.)
 
 ### Authentication
 The authentication is rudimentary and consists of a list of valid usernames in the environment variable.
