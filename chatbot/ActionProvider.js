@@ -7,55 +7,74 @@ import { createCustomMessage } from "react-chatbot-kit";
 const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   // this state variable is used to store the index of where the relevant chat to send to the server begins
   // is required as the user may decide to start again but wants to see the old chat in the window still
-
   const [startActiveChat, setStartActiveChat] = useState(1);
 
   const handleAIChat = async (newPrompt, prevMessages) => {
-    // need to add error handling in case the server throws an error code.
-    const body = {
-      newPrompt: newPrompt,
-      promptHistory: prepareData(prevMessages),
-    };
+    try {
+      const body = {
+        newPrompt: newPrompt,
+        promptHistory: prepareData(prevMessages),
+      };
 
-    let newMessages = [];
+      // show a loading message while the API is being called as it may take some time to return
+      const holdingMessage = createCustomMessage("...", "loader", {
+        payload: "LOADER",
+      });
 
-    const holdingMessage = createCustomMessage("...", "loader", {
-      payload: "LOADER",
-    });
+      setState((prev) => ({
+        ...prev,
+        messages: [...prev.messages, holdingMessage],
+      }));
 
-    setState((prev) => ({
-      ...prev,
-      messages: [...prev.messages, holdingMessage],
-    }));
+      // fetchJson will throw an error if a response code other than 2xx is returned from the API call
+      const result = await fetchJson("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
 
-    // need to show some kind of loading message while waiting for the API to return
-    const result = await fetchJson("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
+      let newMessages = [];
 
-    const botMessage = createChatBotMessage("", {
-      widget: "markdownToHtml",
-      payload: result.content,
-    });
+      const botMessage = createChatBotMessage("", {
+        widget: "markdownToHtml",
+        payload: result.content,
+      });
 
-    newMessages.push(botMessage);
+      newMessages.push(botMessage);
 
-    // send a message to the bot if the quota is getting close
-    if (result.closeToTokenLimit) {
-      const quotaMessage = createCustomMessage(
-        "Close to the API token limit.",
-        "quota"
-      );
-      newMessages.push(quotaMessage);
+      // send a message to the bot if the quota is getting close
+      if (result.closeToTokenLimit) {
+        const quotaMessage = createCustomMessage(
+          "Close to the API token limit.",
+          "quota"
+        );
+        newMessages.push(quotaMessage);
+      }
+
+      setState((prev) => ({
+        ...prev,
+        messages: [
+          ...prev.messages.filter((message) => message.type !== "loader"),
+          ...newMessages,
+        ],
+      }));
+    } catch (e) {
+      showErrorMessage(e);
     }
+  };
+
+  const showErrorMessage = (e) => {
+    // show an error message to the user
+    console.log("An error has occured", e);
+    const errorMessage = createCustomMessage("...", "error", {
+      payload: "ERROR",
+    });
 
     setState((prev) => ({
       ...prev,
       messages: [
-        ...prev.messages.filter((message) => message.type !== "loader"),
-        ...newMessages,
+        ...prev.messages.filter((message) => message.type !== "loader"), //error may have occured after the loader has been shown so remove it
+        errorMessage,
       ],
     }));
   };
@@ -66,7 +85,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   const prepareData = (messages) => {
     const filterMessages = messages
       .slice(startActiveChat)
-      .filter((chat) => !["quota", "loader"].includes(chat.type)); //exclude the custom messages from the API
+      .filter((chat) => !["quota", "loader", "error"].includes(chat.type)); //exclude the custom messages from the API
 
     //now set the messages to the right json values
     const mapMessages = filterMessages.map(setMessage);
