@@ -38,6 +38,8 @@ async function chatRoute(req, res) {
     res.status(200).json({
       role: "bot",
       content: result.answer,
+      tokens: result.tokens,
+      token_limit: TOKEN_LIMIT,
       closeToTokenLimit: result.tokens > TOKEN_LIMIT,
     });
   } else {

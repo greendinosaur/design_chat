@@ -37,10 +37,11 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
 
       const botMessage = createChatBotMessage("", {
         widget: "markdownToHtml",
-        payload: result.content,
+        payload: result,
       });
 
       newMessages.push(botMessage);
+
 
       // send a message to the bot if the quota is getting close
       if (result.closeToTokenLimit) {
@@ -99,7 +100,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   const setMessage = (message) => {
     let messageText = message.message;
     if (messageText.length == 0) {
-      messageText = message.payload;
+      messageText = message.payload.content;
     }
     return { message: messageText, type: message.type };
   };
