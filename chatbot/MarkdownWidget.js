@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 const MarkdownToHtml = (message) => {
-  console.log("mmarkdown", message)
   return (
     <div className="my_markdown_widget">
       <div className="flex flex-row justify-between">
