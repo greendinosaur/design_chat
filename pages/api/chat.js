@@ -41,6 +41,7 @@ async function chatRoute(req, res) {
       tokens: result.tokens,
       token_limit: TOKEN_LIMIT,
       closeToTokenLimit: result.tokens > TOKEN_LIMIT,
+      isError: false
     });
   } else {
     //an error has occured, send back as the response
@@ -53,6 +54,7 @@ async function chatRoute(req, res) {
     res.status(200).json({
       role: "bot",
       content: result.errorMsg,
+      isError: true
     });
   }
 }
