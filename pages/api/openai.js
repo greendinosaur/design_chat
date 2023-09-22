@@ -12,8 +12,9 @@ export async function answerPrompt(messages) {
       });
       const completion = await openai.chat.completions.create({
         messages: messages,
-        model: "gpt-3.5-turbo",
+        model: process.env.OPENAI_API_MODEL? process.env.OPENAI_API_MODEL : "gpt-3.5-turbo-16k",
       });
+      console.log("open api raw response", completion);
       return {
         answer: completion.choices[0].message.content,
         tokens: completion.usage.total_tokens,

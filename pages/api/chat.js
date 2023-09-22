@@ -7,7 +7,7 @@ import { answerPrompt } from "./openai";
 async function chatRoute(req, res) {
   const user = req.session.user;
   const logger = getLogger("chatAPI");
-  const TOKEN_LIMIT = process.env.TOKEN_LIMIT ? process.env.TOKEN_LIMIT : 3500;
+  const TOKEN_LIMIT = process.env.TOKEN_LIMIT ? process.env.TOKEN_LIMIT : 15700;
 
   //user needs to be logged in to use the chat API
   if (!user || user.isLoggedIn === false) {
@@ -41,6 +41,7 @@ async function chatRoute(req, res) {
       tokens: result.tokens,
       token_limit: TOKEN_LIMIT,
       closeToTokenLimit: result.tokens > TOKEN_LIMIT,
+      isError: false
     });
   } else {
     //an error has occured, send back as the response
@@ -53,6 +54,7 @@ async function chatRoute(req, res) {
     res.status(200).json({
       role: "bot",
       content: result.errorMsg,
+      isError: true
     });
   }
 }

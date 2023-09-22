@@ -256,3 +256,18 @@
 .token_info {
   margin-left: 20px;
 }
+
+.my_markdown_widget_error {
+  background-color: #c47151;
+  white-space: pre-wrap;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #ffffff;
+  font-weight: medium;
+  position: relative;
+ /* width: 184.5px;*/
+ width: 900px;
+  margin-left: auto;
+  text-align: left;
+}
