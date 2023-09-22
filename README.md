@@ -14,6 +14,10 @@ SESSION_PASSWORD="SOME UNIQUE PASSWORD AT LEAST 36 CHARS LONG"
 ALLOWED_USERS=[an array of user names] e.g ["MoonStar", "BrightLight"]
 OPENAI_API_KEY="API KEY"
 TOGGLE_API_ON=true
+
+#optional variables
+OPENAI_API_MODEL = "gpt-3.5-turbo-16k" # if not specified, default value "gpt-3.5-turbo-16k" will be used as model name
+TOKEN_LIMIT = 15700 # # if not specified, default value 15700 will be used 
 ```
 
 Register for an [OpenAI](https://openai.com/) account in order to create an API access key
