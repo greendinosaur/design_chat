@@ -7,7 +7,7 @@ import { answerPrompt } from "./openai";
 async function chatRoute(req, res) {
   const user = req.session.user;
   const logger = getLogger("chatAPI");
-  const TOKEN_LIMIT = process.env.TOKEN_LIMIT ? process.env.TOKEN_LIMIT : 3500;
+  const TOKEN_LIMIT = process.env.TOKEN_LIMIT ? process.env.TOKEN_LIMIT : 15700;
 
   //user needs to be logged in to use the chat API
   if (!user || user.isLoggedIn === false) {
