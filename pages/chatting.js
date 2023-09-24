@@ -10,7 +10,7 @@ export default function chatting() {
   const router = useRouter();
 
   return (
-    <div className="container mx-auto p-5">
+    <div className="chat-container">
       {user?.isLoggedIn === true && <MyChatBotComponent />}
       {!user?.isLoggedIn && <p>User not logged in</p>}
     </div>

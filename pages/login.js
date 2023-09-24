@@ -43,7 +43,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="login-page-container">
       <LoginForm errorMessage={errorMsg} onSubmit={handleSubmit} />
     </div>
   );

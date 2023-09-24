@@ -1,6 +1,8 @@
 const LoaderMessage = (message) => {
   return (
-    <div className="font-bold">WAITING FOR A RESPONSE FROM THE API ...</div>
+    <div className="">
+      <b>WAITING FOR A RESPONSE FROM THE API ...</b>
+    </div>
   );
 };
 

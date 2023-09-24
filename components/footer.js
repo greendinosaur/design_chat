@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer>
       <hr />
-      <p className="flex items-center justify-center">
+      <p className="footer">
         <FontAwesomeIcon icon={faCopyright} />
         &nbsp; 2023
       </p>

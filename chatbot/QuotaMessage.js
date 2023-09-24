@@ -1,8 +1,12 @@
 const QuotaMessage = (message) => {
   let response =
-    "This chat is getting too long. Please ask to summarize the chat or start again.";
+    "This chat is getting too long. We recommend to start agin by entering START AGAIN";
 
-  return <div className="font-bold">{response}</div>;
+  return (
+    <div className="">
+      <b>{response}</b>
+    </div>
+  );
 };
 
 export default QuotaMessage;

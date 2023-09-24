@@ -1,10 +1,194 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 
 /* These are the default styles from the globals css provided by react-chatbot-kit
  Have modified the width and height of containers and also positioning of the container
  to center it within the container that holds the chat bot */
+
+a {
+  text-decoration: none;
+}
+
+html * {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  background-color: rgb(132 204 22);
+  color: #fff;
+  flex-wrap: wrap;
+  text-decoration: none;
+}
+
+.navbar-logo-container {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: rgb(241 245 249);
+  margin-right: 1.5rem;
+  text-decoration: none;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: 600;
+  color: rgb(241 245 249);
+}
+
+.login-page-container {
+  display: flex;
+  justify-content: center;
+}
+
+.login {
+  display: inline-block;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;  
+  border-width: 1px;
+  border-radius: 0.25rem;
+  color: rgb(241 245 249);
+  border-color: white;
+  margin-top: 1rem;
+}
+
+.login:hover {
+  border-color: transparent;
+  color: rgb(20 184 66);
+  background-color: white;
+
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+}
+
+.login-container {
+  width: 100%;
+  max-width: 20rem;
+  justify-content: center;
+}
+.login-spacer {
+  margin-bottom: 16px;
+}
+
+.login-form {
+  background-color: white;
+  border-radius: 0.25rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 2rem;
+  margin-bottom: 1rem;
+  box-shadow: 0px 8px 8px -4px lightgray;
+}
+
+.login-text {
+  display: block;
+  color: rgb(55 65 81);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.login-input {
+  appearance: none;
+  border-width: 1px;
+  border-radius: 4px;
+  width: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  color: rgb(55 65 81);
+  line-height: 1.25;
+}
+
+.login-input:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+
+}
+
+.login-error {
+  color: rgb(239 68 68);
+  font-size: 12px;
+  line-height: 16px;
+  font-style: italic;
+}
+
+.login-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.login-submit {
+  background-color: rgb(59 130 246);
+  color: white;
+  font-weight: 700;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 4px;
+}
+
+.login-submit:hover {
+  background-color: rgb(29 78 216);
+}
+
+.login-submit:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.login-cancel {
+  display: inline-block;
+  vertical-align: baseline;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  color: rgb(59 130 246)
+
+}
+.login-cancel:hover{
+  color: rgb(30 64 175);
+}
+
+.chat-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+}
+
+@media (min-width: 640px){
+  .container {
+    max-width: 640px
+  }
+}
+@media (min-width:768px){
+  .container {
+    max-width: 768px
+  }
+}
+
+.md-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 
 .react-chatbot-kit-user-chat-message-container {
   display: flex;
@@ -31,7 +215,7 @@
 
 .react-chatbot-kit-user-chat-message {
   background-color: #f1f1f1;
-  padding: 10px;
+  padding: 3px 10px 3px 10px;
   border-radius: 5px;
   font-size: 0.9rem;
   color: #585858;
@@ -84,7 +268,7 @@
 .react-chatbot-kit-chat-bot-message, .my_markdown_widget {
   background-color: #376B7E;
   white-space: pre-wrap;
-  padding: 10px;
+  padding: 3px 10px 3px 10px;
   border-radius: 5px;
   font-size: 0.9rem;
   color: #ffffff;

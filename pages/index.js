@@ -14,10 +14,7 @@ export default function HomePage() {
 
   function loginButton() {
     return (
-      <Link
-        href="/login"
-        className="inline-block text-sm  bg-lime-500 px-4 py-2 leading-none border rounded text-slate-800 border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
-      >
+      <Link href="/login" className="">
         Login
       </Link>
     );

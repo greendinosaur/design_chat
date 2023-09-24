@@ -1,7 +1,7 @@
 import Link from "next/link";
 import useUser from "../lib/useUser";
 import { useRouter } from "next/router";
-import Image from "next/image";
+
 import fetchJson from "../lib/fetchJson";
 
 export default function NavBar() {
@@ -12,31 +12,20 @@ export default function NavBar() {
 
   return (
     <header>
-      <nav className="flex items-center justify-between flex-wrap bg-lime-500 p-5">
-        <div className="flex item-center flex-shrink-0 text-slate-100 mr-6">
-          <span className="font-semibold text-xl tracking-tight">
+      <nav className="navbar">
+        <div className="navbar-log-container">
+          <span className="logo">
             {user?.isLoggedIn === false && (
-              <Link href="/">Design Challenge</Link>
+              <Link className="logo" href="/">
+                Design Challenge
+              </Link>
             )}
-            {user?.isLoggedIn === true && <p>Design Challenge</p>}
+            {user?.isLoggedIn === true && <span>Design Challenge</span>}
           </span>
         </div>
-        {user?.isLoggedIn == false && (
-          <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-            <Link
-              href="/about"
-              className="block mt-4 lg:inline-block lg:mt-0 text-slate-700 hover:text-white mr-4"
-            >
-              About
-            </Link>
-          </div>
-        )}
         {user?.isLoggedIn === false && (
           <div>
-            <Link
-              href="/login"
-              className="inline-block text-sm px-4 py-2 leading-none border rounded text-slate-100 border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
-            >
+            <Link href="/login" className="login">
               Login
             </Link>
           </div>
@@ -58,7 +47,7 @@ export default function NavBar() {
                 );
                 router.push("/login");
               }}
-              className="inline-block text-sm px-4 py-2 leading-none border rounded text-slate-100 border-slate-100 hover:border-transparent hover:text-lime-800 hover:bg-slate-100 mt-4 lg:mt-0"
+              className="login"
             >
               Logout
             </a>
