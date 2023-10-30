@@ -9,7 +9,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "iron-session": "^6.3.1",
-    "next": "^13.4.13",
+    "next": "^14.0.0",
     "openai": "^4.7.0",
     "pino": "^8.15.0",
     "react": "^18.2.0",
